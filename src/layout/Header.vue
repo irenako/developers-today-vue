@@ -4,8 +4,8 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <header class="flex justify-between py-4 px-8 items-center">
-    <div class="flex items-center gap-4">
+  <header class="flex flex-col gap-6 md:gap-0 md:flex-row justify-between py-4 px-8 items-center">
+    <a href="/" class="flex items-center gap-4">
       <img
         alt="Vue logo"
         class="logo"
@@ -14,7 +14,7 @@ import { RouterLink, RouterView } from 'vue-router'
         height="100"
       />
       <h1 class="text-2xl">Countries Info</h1>
-    </div>
+    </a>
 
     <!-- <HelloWorld msg="You did it!" /> -->
 

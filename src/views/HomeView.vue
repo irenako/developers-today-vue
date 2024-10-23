@@ -73,8 +73,8 @@ export default defineComponent({
 </script>
 
 <template>
-  <main class="p-8 grid grid-cols-3 row-auto gap-16 bg-blue-50">
-    <div>
+  <main class="p-8 grid grid-cols-1 md:grid-cols-3 row-auto  md:gap-16 bg-blue-50">
+    <div class="col-span-1 mb-8 md:mb-0">
       <input
         type="text"
         v-model="search"
@@ -82,7 +82,7 @@ export default defineComponent({
         class="border-b-2 border-blue-900 py-2 focus:outline-none focus:border-blue-500 mb-8 bg-blue-50"
       />
 
-      <List :enableScroll="true">
+      <List :enableScroll="true" maxHeight="max-h-52">
         <template v-slot:heading>Countries List</template>
 
         <!-- ADD ERROR HANDLING -->
@@ -96,11 +96,11 @@ export default defineComponent({
     </div>
 
     <div class="col-span-2">
-      <List>
+      <List :enableScroll="true">
         <template v-slot:heading>
-          <div class="flex justify-between items-center">
+          <div class="flex flex-col justify-start gap-4 md:gap-0 md:flex-row md:justify-between md:items-center">
             Upcoming Holidays
-            <div class="text-lg flex gap-2 justify-end">
+            <div class="text-lg flex gap-2 md:justify-end">
               <p>Select number of holidays:</p>
               <input
                 type="number"
