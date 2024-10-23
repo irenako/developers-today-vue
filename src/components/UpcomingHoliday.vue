@@ -18,9 +18,9 @@ export default {
 </script>
 
 <template>
-  <div class="my-4 rounded overflow-hidden shadow-lg bg-white w-full flex">
+  <div class="my-4 rounded overflow-hidden shadow-lg bg-white w-full flex flex-col md:flex-row">
     <div
-      class="h-auto flex-none bg-cover overflow-hidden w-56 bg-blue-300"
+      class="h-56 md:h-auto flex-none bg-cover overflow-hidden md:w-56 bg-blue-300"
     ></div>
     <div class="p-8 flex-1">
       <div class="mb-4 flex gap-2">
@@ -33,7 +33,7 @@ export default {
 
       <div class="flex justify-between align-center mt-6 text-sm">
         <h2 >
-          <a :href="`/country/${code}`" class="text-blue-500">{{
+          <a :href="`/country/${holiday.countryCode}`" class="text-blue-500">{{
             countryName ?? 'unknown'
           }}</a>
         </h2>
