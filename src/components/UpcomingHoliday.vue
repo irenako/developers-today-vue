@@ -1,0 +1,44 @@
+<script lang="ts">
+import moment from 'moment';
+import HolidayFeature from './HolidayFeature.vue';
+
+export default {
+  props: ['holiday', 'countryName'],
+  components: {
+    HolidayFeature
+  },
+  methods: {
+    formatDate(value) {
+      if (value) {
+        return moment(String(value)).format('Do MMMM YYYY')
+      }
+    },
+  },
+}
+</script>
+
+<template>
+  <div class="my-4 rounded overflow-hidden shadow-lg bg-white w-full flex">
+    <div
+      class="h-auto flex-none bg-cover overflow-hidden w-56 bg-blue-300"
+    ></div>
+    <div class="p-8 flex-1">
+      <div class="mb-4 flex gap-2">
+        <HolidayFeature v-for="item in holiday.types" :item="item" />
+        <HolidayFeature  :item="holiday.global ? 'Global' : 'Local'"/>
+      </div>
+
+      <h3 class="text-xl">{{ holiday.name }}</h3>
+      <h6 class="text-md">{{ holiday.localName }}</h6>
+
+      <div class="flex justify-between align-center mt-6 text-sm">
+        <h2 >
+          <a :href="`/country/${code}`" class="text-blue-500">{{
+            countryName ?? 'unknown'
+          }}</a>
+        </h2>
+        <p>{{ formatDate(holiday.date) }}</p>
+      </div>
+    </div>
+  </div>
+</template>
