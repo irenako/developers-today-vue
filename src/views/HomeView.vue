@@ -3,8 +3,10 @@ import List from '../layout/List.vue'
 import Country from '../components/Country.vue'
 import UpcomingHoliday from '../components/UpcomingHoliday.vue'
 import ErrorMessage from '../components/ErrorMessage.vue'
+import { defineComponent } from 'vue'
+import { Country as CountryType, Holiday as HolidayType } from '../types.ts'
 
-export default {
+export default defineComponent({
   components: {
     List,
     Country,
@@ -13,12 +15,12 @@ export default {
   },
   data() {
     return {
-      search: '',
-      countries: [],
-      holidays: [],
-      number: 3,
-      errorFetchingCountries: null,
-      errorFetchingHolidays: null,
+      search: '' as string,
+      countries: [] as CountryType[],
+      holidays: [] as HolidayType[],
+      number: 3 as number,
+      errorFetchingCountries: null as string|null,
+      errorFetchingHolidays: null as string|null,
     }
   },
   created() {
@@ -28,7 +30,7 @@ export default {
   methods: {
     fetchCountriesList() {
       this.errorFetchingCountries = null
-      fetch(`${process.env.VUE_APP_BASE_URL}AvailableCountries`)
+      fetch(`${process.env.BASE_API_URL}AvailableCountries`)
         .then(res => {
           res.json().then(data => (this.countries = data))
         })
@@ -40,7 +42,7 @@ export default {
     },
     fetchHolidays() {
       this.errorFetchingHolidays = null
-      fetch(`${process.env.VUE_APP_BASE_URL}NextPublicHolidaysWorldwide`)
+      fetch(`${process.env.BASE_API_URL}NextPublicHolidaysWorldwide`)
         .then(res => {
           res.json().then(data => (this.holidays = data))
         })
@@ -67,7 +69,7 @@ export default {
       return this.holidays.slice(0, this.number)
     },
   },
-}
+})
 </script>
 
 <template>
