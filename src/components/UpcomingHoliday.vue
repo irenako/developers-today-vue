@@ -8,9 +8,9 @@ export default {
     HolidayFeature
   },
   methods: {
-    formatDate(value) {
+    formatDate(value: string) {
       if (value) {
-        return moment(String(value)).format('Do MMMM YYYY')
+        return moment(value).format('Do MMMM YYYY')
       }
     },
   },
@@ -24,8 +24,8 @@ export default {
     ></div>
     <div class="p-8 flex-1">
       <div class="mb-4 flex gap-2">
-        <HolidayFeature v-for="item in holiday.types" :item="item" />
-        <HolidayFeature  :item="holiday.global ? 'Global' : 'Local'"/>
+        <HolidayFeature v-for="(item, index) in holiday.types" :item="item" :key="index"/>
+        <HolidayFeature :item="holiday.global ? 'Global' : 'Local'"/>
       </div>
 
       <h3 class="text-xl">{{ holiday.name }}</h3>

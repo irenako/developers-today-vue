@@ -1,10 +1,7 @@
 <script lang="ts">
 import UpcomingHoliday from '../components/UpcomingHoliday.vue'
 import { defineComponent } from 'vue'
-import {
-  Holiday as HolidayType,
-  CountryDetails as CountryDetailsType,
-} from '../types.ts'
+import type { Holiday, CountryDetails } from '../types.ts'
 
 export default defineComponent({
   components: {
@@ -12,10 +9,10 @@ export default defineComponent({
   },
   data() {
     return {
-      details: [] as CountryDetailsType,
+      details: {} as CountryDetails,
       error: null as string | null,
       selectedYear: new Date().getFullYear() as number,
-      holidays: [] as HolidayType[],
+      holidays: [] as Holiday[],
     }
   },
   created() {
@@ -26,7 +23,7 @@ export default defineComponent({
     this.scrollToSelectedYear()
   },
   methods: {
-    async fetchCountryDetails() {
+    async fetchCountryDetails(): Promise<void> {
       try {
         const res = await fetch(
           `${process.env.BASE_API_URL}CountryInfo/${this.$route.params.code}`,
@@ -42,10 +39,10 @@ export default defineComponent({
           'Oops ... Country details cannot be loaded. Please refresh the page.'
       }
     },
-    getImageUrl() {
+    getImageUrl():string {
       return `${process.env.FLAG_API_URL}${this.$route.params.code}/flat/64.png`
     },
-    async fetchHolidaysByYear() {
+    async fetchHolidaysByYear(): Promise<void> {
       try {
         const res = await fetch(
           `${process.env.BASE_API_URL}PublicHolidays/${this.selectedYear}/${this.$route.params.code}`,
@@ -61,15 +58,16 @@ export default defineComponent({
           'Oops ... Country holidays cannot be loaded. Please refresh the page.'
       }
     },
-    handleHomePageReturn() {
+    handleHomePageReturn():void {
       this.$router.push('/')
     },
-    scrollToSelectedYear() {
+    scrollToSelectedYear():void {
       this.$nextTick(() => {
-        const selectedButton = this.$refs.selectedYearButton
-        if (selectedButton && selectedButton.length) {
+        const selectedButton = this.$refs.selectedYearButton as HTMLElement[]
+        console.log(selectedButton)
+        if (selectedButton && selectedButton?.length) {
           selectedButton[0].scrollIntoView({
-            behaviour: 'smooth',
+            behavior: 'smooth',
             block: 'nearest',
           })
         }
@@ -77,7 +75,7 @@ export default defineComponent({
     },
   },
   computed: {
-    getYearsRange() {
+    getYearsRange(): number[] {
       const result = []
       const currentYear = new Date().getFullYear()
       const maxYearRange = 10
@@ -129,18 +127,18 @@ export default defineComponent({
       <button
         v-for="year in getYearsRange"
         :key="year"
-        @click="this.selectedYear = year"
+        @click="selectedYear = year"
         :class="`${year === selectedYear ? 'bg-blue-500 text-white' : 'border border-blue-50 bg-white'} py-2 px-4 text-sm rounded`"
-        :ref="year === selectedYear ? 'selectedYearButton' : null"
+        :ref="year === selectedYear ? 'selectedYearButton' : ''"
       >
         {{ year }}
       </button>
     </div>
 
-    <div>
+    <div v-if="holidays.length">
       <UpcomingHoliday
-        v-if="holidays.length"
-        v-for="holiday in holidays"
+        v-for="(holiday, index) in holidays"
+        :key="index"
         :country-name="details?.commonName"
         :holiday="holiday"
       />

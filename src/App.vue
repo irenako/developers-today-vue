@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import Header from './layout/Header.vue'
-import Footer from './layout/Footer.vue'
+import { RouterView } from 'vue-router'
+import Header from './layout/HeaderMain.vue'
+import Footer from './layout/FooterMain.vue'
 </script>
 
 <template>
   <Header />
-
   <RouterView />
   <Footer />
 </template>
