@@ -40,7 +40,7 @@ export default defineComponent({
           'Oops ... Country details cannot be loaded. Please refresh the page.'
       }
     },
-    getImageUrl():string {
+    getImageUrl(): string {
       return `${import.meta.env.VITE_FLAG_API_URL}${this.$route.params.code}/flat/64.png`
     },
     async fetchHolidaysByYear(): Promise<void> {
@@ -59,10 +59,10 @@ export default defineComponent({
           'Oops ... Country holidays cannot be loaded. Please refresh the page.'
       }
     },
-    handleHomePageReturn():void {
+    handleHomePageReturn(): void {
       this.$router.push('/')
     },
-    scrollToSelectedYear():void {
+    scrollToSelectedYear(): void {
       this.$nextTick(() => {
         const selectedButton = this.$refs.selectedYearButton as HTMLElement[]
         console.log(selectedButton)
@@ -95,6 +95,10 @@ export default defineComponent({
     selectedYear() {
       this.fetchHolidaysByYear()
     },
+    '$route.params.code': function () {
+      this.fetchCountryDetails()
+      this.fetchHolidaysByYear()
+    },
   },
 })
 </script>
@@ -111,13 +115,19 @@ export default defineComponent({
       <li>
         Borders:
         <template v-if="details?.borders?.length">
-          <a
-            :href="`/country/${c.countryCode}`"
+          <router-link
             v-for="(c, index) in details?.borders"
+            :to="{
+              name: 'Single Country Details Page',
+              params: { code: c.countryCode },
+              query: { name: c.commonName },
+            }"
             :key="index"
             class="mr-1 text-blue-500"
             >{{ c.commonName
-            }}{{ index !== details?.borders.length - 1 ? ',' : '' }}</a
+            }}{{
+              index !== details?.borders.length - 1 ? ',' : ''
+            }}</router-link
           >
         </template>
         <span v-else>No Borders</span>
