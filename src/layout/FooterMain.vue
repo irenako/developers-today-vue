@@ -2,7 +2,9 @@
 import { defineComponent } from 'vue'
 export default defineComponent({
   data() {
-    year: new Date().getFullYear() as number
+    return {
+      year: new Date().getFullYear() as number
+    }
   },
 })
 </script>

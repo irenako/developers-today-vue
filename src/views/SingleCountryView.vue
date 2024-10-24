@@ -25,8 +25,9 @@ export default defineComponent({
   methods: {
     async fetchCountryDetails(): Promise<void> {
       try {
+        console.log(import.meta.env)
         const res = await fetch(
-          `${process.env.BASE_API_URL}CountryInfo/${this.$route.params.code}`,
+          `${import.meta.env.VITE_BASE_API_URL}CountryInfo/${this.$route.params.code}`,
         )
         if (!res.ok)
           throw new Error(
@@ -40,12 +41,12 @@ export default defineComponent({
       }
     },
     getImageUrl():string {
-      return `${process.env.FLAG_API_URL}${this.$route.params.code}/flat/64.png`
+      return `${import.meta.env.VITE_FLAG_API_URL}${this.$route.params.code}/flat/64.png`
     },
     async fetchHolidaysByYear(): Promise<void> {
       try {
         const res = await fetch(
-          `${process.env.BASE_API_URL}PublicHolidays/${this.selectedYear}/${this.$route.params.code}`,
+          `${import.meta.env.VITE_BASE_API_URL}PublicHolidays/${this.selectedYear}/${this.$route.params.code}`,
         )
         if (!res.ok)
           throw new Error(

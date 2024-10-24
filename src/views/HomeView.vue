@@ -28,7 +28,7 @@ export default defineComponent({
   methods: {
     fetchCountriesList(): void {
       this.errorFetchingCountries = null
-      fetch(`${process.env.BASE_API_URL}AvailableCountries`)
+      fetch(`${import.meta.env.VITE_BASE_API_URL}AvailableCountries`)
         .then(res => {
           res.json().then(data => (this.countries = data))
         })
@@ -40,7 +40,7 @@ export default defineComponent({
     },
     fetchHolidays(): void {
       this.errorFetchingHolidays = null
-      fetch(`${process.env.BASE_API_URL}NextPublicHolidaysWorldwide`)
+      fetch(`${import.meta.env.VITE_BASE_API_URL}NextPublicHolidaysWorldwide`)
         .then(res => {
           res.json().then(data => (this.holidays = data))
         })
