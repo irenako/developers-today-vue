@@ -111,19 +111,15 @@ export default defineComponent({
       <li>
         Borders:
         <template v-if="details?.borders?.length">
-          <router-link
-            :to="{
-              name: 'Single Country Details Page',
-              params: { code: c.countryCode },
-              query: { name: c.commonName },
-            }"
+          <a
             v-for="(c, index) in details?.borders"
+            :href="`/country/${c.countryCode}?name=${c.commonName}`"
             :key="index"
             class="mr-1 text-blue-500"
             >{{ c.commonName
             }}{{
               index !== details?.borders.length - 1 ? ',' : ''
-            }}</router-link
+            }}</a
           >
         </template>
         <span v-else>No Borders</span>
