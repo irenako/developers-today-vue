@@ -79,7 +79,7 @@ export default defineComponent({
         type="text"
         v-model="search"
         placeholder="Search Country"
-        class="border-b-2 border-blue-900 py-2 focus:outline-none focus:border-blue-500 mb-8 bg-blue-50"
+        class="border-b-2 w-full rounded-none border-blue-900 py-2 focus:outline-none focus:border-blue-500 mb-8 bg-blue-50"
       />
 
       <List :enableScroll="true" maxHeight="max-h-52">
