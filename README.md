@@ -90,6 +90,7 @@ npm run build
 - **Vue Router**: For navigation in SPA.
 - **ESLint & Prettier**: To ensure consistent code quality and styling.
 - **Moment js**: Library for handling dates
+- **Tailwind & PostCSS**: CSS framework used for styling.
 
 ## API
 
